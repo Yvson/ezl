@@ -34,8 +34,14 @@ jobs:
       - name: Verify tools (skip docker module checks)
         working-directory: bcx
         run: |
-          # source zshrc so PATH is correct
-          source config/zshrc
+          # set PATH manually (zshrc can't be sourced from bash — oh-my-zsh errors)
+          export PATH="$HOME/.sdkman/candidates/java/current/bin:$PATH"
+          export PATH="$HOME/.sdkman/candidates/maven/current/bin:$PATH"
+          export PATH="$HOME/.sdkman/candidates/gradle/current/bin:$PATH"
+          export PATH="$HOME/.nvm/versions/node/v24.20.0/bin:$PATH"
+          export PATH="$HOME/.pyenv/shims:$PATH"
+          export PATH="$HOME/.dotnet:$PATH"
+          export PATH="/usr/local/go/bin:$PATH"
           BCX_HOME="$PWD" bin/bcx verify || true
           # docker/lazydocker will fail since we skipped 30-docker in CI
           git --version

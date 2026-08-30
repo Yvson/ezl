@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# semantic-release local install
+package.json
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# bcx state (local installs)
+.state/
