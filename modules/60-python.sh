@@ -8,9 +8,10 @@ source "$(dirname "$0")/../config/versions.env"
 log "Installing pyenv + Python $PYTHON_VERSION"
 
 # build dependencies for compiling python
+# libncursesw5-dev was renamed to libncurses-dev in Ubuntu 24.04
 ensure_apt_pkgs \
     build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev curl libncursesw5-dev \
+    libreadline-dev libsqlite3-dev curl libncurses-dev \
     xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 export PYENV_ROOT="$HOME/.pyenv"

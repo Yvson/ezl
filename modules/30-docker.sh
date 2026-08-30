@@ -32,9 +32,10 @@ else
 fi
 
 # ---- add current user to docker group ----------------------------------------
-if ! id -nG "$USER" | grep -qw docker; then
-    log "Adding $USER to docker group"
-    as_root usermod -aG docker "$USER"
+current_user="${USER:-$(id -un 2>/dev/null || echo root)}"
+if ! id -nG "$current_user" | grep -qw docker; then
+    log "Adding $current_user to docker group"
+    as_root usermod -aG docker "$current_user"
     warn "You need to log out / restart WSL for group change to take effect"
 fi
 

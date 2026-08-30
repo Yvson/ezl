@@ -38,15 +38,20 @@ cp "$(dirname "$0")/../config/zshrc" "$HOME/.zshrc"
 cp "$(dirname "$0")/../config/tmux.conf" "$HOME/.tmux.conf"
 
 # ---- change default shell to zsh ---------------------------------------------
-if [[ "$SHELL" != *zsh ]]; then
-    log "Changing default shell to zsh (may ask for password)"
-    if have chsh; then
-        chsh -s "$(command -v zsh)"
+# Skip chsh in containers / CI where it's not meaningful and can hang
+if [[ -z "${CI:-}" && -z "${GITHUB_ACTIONS:-}" && ! -f /.dockerenv ]]; then
+    if [[ "$SHELL" != *zsh ]]; then
+        log "Changing default shell to zsh (may ask for password)"
+        if have chsh; then
+            chsh -s "$(command -v zsh)"
+        else
+            warn "chsh not available; run: sudo chsh -s $(command -v zsh) $USER"
+        fi
     else
-        warn "chsh not available; run: sudo chsh -s $(command -v zsh) $USER"
+        ok "Default shell is already zsh"
     fi
 else
-    ok "Default shell is already zsh"
+    log "Skipping chsh (container/CI environment)"
 fi
 
 ok "Shell module complete"
