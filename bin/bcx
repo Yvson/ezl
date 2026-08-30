@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# bcx — local CLI for managing this dev environment after installation
+set -euo pipefail
+
+BCX_HOME="${BCX_HOME:-$HOME/.bcx}"
+
+# make sure we can find our libs
+if [[ ! -f "$BCX_HOME/lib/common.sh" ]]; then
+    echo "bcx: BCX_HOME not found at $BCX_HOME. Install first." >&2
+    exit 1
+fi
+
+# shellcheck source=../lib/common.sh
+source "$BCX_HOME/lib/common.sh"
+source "$BCX_HOME/lib/wsl.sh"
+
+usage() {
+    cat <<EOF
+Usage: bcx <command>
+
+Commands:
+  update            git pull latest bcx and re-run install (idempotent)
+  install <module>  run a specific module again (use --force too)
+  verify            smoke-test that all toolchains are working
+  list              show available modules
+  help              show this help
+EOF
+}
+
+cmd="${1:-help}"
+
+case "$cmd" in
+    update)
+        log "Updating bcx..."
+        git -C "$BCX_HOME" pull --ff-only
+        "$BCX_HOME/install.sh" --yes
+        ;;
+    install)
+        [[ -z "${2:-}" ]] && die "install needs a module name (see: bcx list)"
+        "$BCX_HOME/install.sh" --only "$2" --force --yes
+        ;;
+    verify)
+        log "Verifying installation..."
+        declare -A checks=(
+            [git]="git --version"
+            [gh]="gh --version"
+            [zsh]="zsh --version"
+            [tmux]="tmux -V"
+            [docker]="docker version --format '{{.Server.Version}}'"
+            [lazydocker]="lazydocker --version"
+            [java]="java -version"
+            [mvn]="mvn -version"
+            [gradle]="gradle --version"
+            [node]="node --version"
+            [npm]="npm --version"
+            [python]="python --version"
+            [pipx]="pipx --version"
+            [dotnet]="dotnet --version"
+            [go]="go version"
+            [fzf]="fzf --version"
+            [rg]="rg --version"
+            [bat]="bat --version"
+        )
+        failed=0
+        for name in "${!checks[@]}"; do
+            if eval "${checks[$name]}" >/dev/null 2>&1; then
+                ok "$name"
+            else
+                err "$name — MISSING (run: bcx install <module>)"
+                (( failed++ ))
+            fi
+        done
+        if (( failed > 0 )); then
+            err "$failed tools failed verification"
+            exit 1
+        fi
+        ok "All tools verified"
+        ;;
+    list)
+        find "$BCX_HOME/modules" -name '*.sh' -printf '%f\n' | sort | sed 's/\.sh$//'
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    *)
+        err "Unknown command: $cmd"
+        usage
+        exit 1
+        ;;
+esac
