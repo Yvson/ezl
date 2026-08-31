@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Yvson/bcx/compare/v1.0.0...v1.1.0) (2026-08-31)
+
+
+### Features
+
+* prettier and semantic version config ([82b1ab6](https://github.com/Yvson/bcx/commit/82b1ab6da22aa368f51f10a2df9d3a9a20f8fff8))
+
 # 1.0.0 (2026-08-30)
 
 
