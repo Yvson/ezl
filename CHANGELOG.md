@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Yvson/bcx/compare/v1.1.0...v1.1.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* workflows triggering rules ([ca7949b](https://github.com/Yvson/bcx/commit/ca7949bdd58eb109c6b43dc5f8fdf32bd9afc292))
+
 # [1.1.0](https://github.com/Yvson/bcx/compare/v1.0.0...v1.1.0) (2026-08-31)
 
 
