@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/Yvson/ezl/compare/v1.1.1...v2.0.0) (2026-09-05)
+
+
+* feat!: rename project from bcx to ezl ([9a32630](https://github.com/Yvson/ezl/commit/9a326303dbf430ffa21ab68ec6c3829554868d4c))
+
+
+### BREAKING CHANGES
+
+* project renamed from bcx to ezl. Update install URL, CLI command, and EZL_HOME variable.
+
 ## [1.1.1](https://github.com/Yvson/bcx/compare/v1.1.0...v1.1.1) (2026-08-31)
 
 ### Bug Fixes
