@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y shellcheck
-          shellcheck -x -e SC1091 install.sh lib/*.sh modules/*.sh bin/bcx
+          shellcheck -x -e SC1091 install.sh lib/*.sh modules/*.sh bin/ezl
 
   install-test:
     if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
@@ -27,13 +27,13 @@ jobs:
           apt-get install -y git curl sudo
       - uses: actions/checkout@v4
         with:
-          path: bcx
+          path: ezl
       - name: Run installer (skip docker in CI — no systemd)
-        working-directory: bcx
+        working-directory: ezl
         run: |
           ./install.sh --yes --skip 30-docker
       - name: Verify tools (skip docker module checks)
-        working-directory: bcx
+        working-directory: ezl
         run: |
           # set PATH manually (zshrc can't be sourced from bash — oh-my-zsh errors)
           export PATH="$HOME/.sdkman/candidates/java/current/bin:$PATH"
@@ -43,7 +43,7 @@ jobs:
           export PATH="$HOME/.pyenv/shims:$PATH"
           export PATH="$HOME/.dotnet:$PATH"
           export PATH="/usr/local/go/bin:$PATH"
-          BCX_HOME="$PWD" bin/bcx verify || true
+          EZL_HOME="$PWD" bin/ezl verify || true
           # docker/lazydocker will fail since we skipped 30-docker in CI
           git --version
           gh --version

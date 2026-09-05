@@ -15,5 +15,5 @@ Thumbs.db
 *.swp
 *.swo
 
-# bcx state (local installs)
+# ezl state (local installs)
 .state/

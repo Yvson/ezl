@@ -1,4 +1,4 @@
-# Contributing to bcx
+# Contributing to ezl
 
 ## Commit Convention
 
