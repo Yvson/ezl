@@ -31,8 +31,8 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
 fi
 
 # ---- install our zshrc (overwrite omz default, but backup existing) ----------
-if [[ ! -f "$HOME/.zshrc.bcx-backup" ]]; then
-    [[ -f "$HOME/.zshrc" ]] && cp "$HOME/.zshrc" "$HOME/.zshrc.bcx-backup"
+if [[ ! -f "$HOME/.zshrc.ezl-backup" ]]; then
+    [[ -f "$HOME/.zshrc" ]] && cp "$HOME/.zshrc" "$HOME/.zshrc.ezl-backup"
 fi
 cp "$(dirname "$0")/../config/zshrc" "$HOME/.zshrc"
 cp "$(dirname "$0")/../config/tmux.conf" "$HOME/.tmux.conf"

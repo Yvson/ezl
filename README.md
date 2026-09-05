@@ -1,7 +1,7 @@
-# bcx — WSL Ubuntu 24.04 Dev Environment Bootstrap
+# ezl — WSL Ubuntu 24.04 Dev Environment Bootstrap
 
-[![Release](https://github.com/Yvson/bcx/workflows/Release/badge.svg)](https://github.com/Yvson/bcx/releases)
-[![CI](https://github.com/Yvson/bcx/workflows/CI/badge.svg)](https://github.com/Yvson/bcx/actions)
+[![Release](https://github.com/Yvson/ezl/workflows/Release/badge.svg)](https://github.com/Yvson/ezl/releases)
+[![CI](https://github.com/Yvson/ezl/workflows/CI/badge.svg)](https://github.com/Yvson/ezl/actions)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 One command to set up a complete developer environment inside a fresh Ubuntu 24.04 WSL instance.
@@ -9,7 +9,7 @@ One command to set up a complete developer environment inside a fresh Ubuntu 24.
 ## Quickstart
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Yvson/bcx/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Yvson/ezl/main/install.sh | bash
 ```
 
 Then restart WSL from PowerShell:
@@ -38,10 +38,10 @@ wsl -d Ubuntu-24.04
 
 ```bash
 # after install
-bcx update          # pull latest and re-run everything (idempotent)
-bcx install 40-java # re-run a specific module
-bcx verify          # smoke-test all tools
-bcx list            # show modules
+ezl update          # pull latest and re-run everything (idempotent)
+ezl install 40-java # re-run a specific module
+ezl verify          # smoke-test all tools
+ezl list            # show modules
 ```
 
 ### Install options
@@ -59,7 +59,7 @@ bcx list            # show modules
 Edit [config/versions.env](config/versions.env) to change versions, then:
 
 ```bash
-bcx install 40-java --force
+ezl install 40-java --force
 ```
 
 Edit [config/zshrc](config/zshrc) or [config/tmux.conf](config/tmux.conf) to customize your shell.
@@ -80,7 +80,7 @@ Releases are published automatically on every merge to `main`.
 
 - Docker runs **natively** inside WSL (not Docker Desktop). The installer enables systemd in `/etc/wsl.conf`, but you must run `wsl --shutdown` once from Windows for it to take effect.
 - Git config is installed as a template ([config/gitconfig](config/gitconfig)) — update your name and email.
-- Everything is idempotent: safe to re-run `bcx update` anytime.
+- Everything is idempotent: safe to re-run `ezl update` anytime.
 
 ## License
 

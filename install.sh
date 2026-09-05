@@ -2,7 +2,7 @@
 # install.sh — one-line bootstrap for a WSL Ubuntu 24.04 dev environment
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/<owner>/bcx/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/<owner>/ezl/main/install.sh | bash
 #   ./install.sh [--only module1,module2] [--skip module1,module2] [--list] [--dry-run] [--force] [--yes]
 #
 set -euo pipefail
@@ -14,8 +14,8 @@ if [[ ! -d "$SCRIPT_DIR/lib" ]]; then
     SCRIPT_DIR=""
 fi
 
-REPO_URL="https://github.com/Yvson/bcx.git"
-BCX_HOME="${BCX_HOME:-$HOME/.bcx}"
+REPO_URL="https://github.com/Yvson/ezl.git"
+EZL_HOME="${EZL_HOME:-$HOME/.ezl}"
 
 # --- minimal argparse (store args early for possible re-exec) ----------------
 ORIG_ARGS=("$@")
@@ -60,12 +60,12 @@ if [[ -z "$SCRIPT_DIR" || ! -f "$SCRIPT_DIR/install.sh" ]]; then
     if ! command -v git >/dev/null 2>&1; then
         apt-get update -y && apt-get install -y git
     fi
-    if [[ -d "$BCX_HOME" ]]; then
-        git -C "$BCX_HOME" pull --ff-only
+    if [[ -d "$EZL_HOME" ]]; then
+        git -C "$EZL_HOME" pull --ff-only
     else
-        git clone "$REPO_URL" "$BCX_HOME"
+        git clone "$REPO_URL" "$EZL_HOME"
     fi
-    SCRIPT_DIR="$BCX_HOME"
+    SCRIPT_DIR="$EZL_HOME"
     cd "$SCRIPT_DIR"
     exec ./install.sh "${ORIG_ARGS[@]}"
 fi
@@ -105,7 +105,7 @@ if ! is_wsl; then
 fi
 
 if (( ASSUME_YES == 0 && DRY_RUN == 0 )); then
-    read -rp "Install bcx dev environment to $BCX_HOME? [y/N] " ans
+    read -rp "Install ezl dev environment to $EZL_HOME? [y/N] " ans
     [[ "$ans" =~ ^[Yy]$ ]] || { log "Aborted."; exit 0; }
 fi
 

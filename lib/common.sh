@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# common.sh — shared helpers for bcx installer modules
+# common.sh — shared helpers for ezl installer modules
 
 # ----- colors / logging -----------------------------------------------------
 if [[ -t 1 ]]; then
@@ -12,23 +12,23 @@ else
     C_RESET=""; C_INFO=""; C_OK=""; C_WARN=""; C_ERR=""
 fi
 
-log()  { printf "%b[bcx]%b %s\n" "$C_INFO" "$C_RESET" "$*"; }
+log()  { printf "%b[ezl]%b %s\n" "$C_INFO" "$C_RESET" "$*"; }
 ok()   { printf "%b[ok]%b  %s\n" "$C_OK"   "$C_RESET" "$*"; }
 warn() { printf "%b[warn]%b %s\n" "$C_WARN" "$C_RESET" "$*" >&2; }
 err()  { printf "%b[err]%b  %s\n" "$C_ERR" "$C_RESET" "$*" >&2; }
 die()  { err "$*"; exit 1; }
 
 # ----- state / idempotency ---------------------------------------------------
-BCX_STATE_DIR="${BCX_HOME:-$HOME/.bcx}/.state"
-mkdir -p "$BCX_STATE_DIR"
+EZL_STATE_DIR="${EZL_HOME:-$HOME/.ezl}/.state"
+mkdir -p "$EZL_STATE_DIR"
 
 is_done() {
-    [[ -f "$BCX_STATE_DIR/$1" ]]
+    [[ -f "$EZL_STATE_DIR/$1" ]]
 }
 
 mark_done() {
     local name="$1"
-    touch "$BCX_STATE_DIR/${name}.done"
+    touch "$EZL_STATE_DIR/${name}.done"
 }
 
 # ----- system helpers ------------------------------------------------------
